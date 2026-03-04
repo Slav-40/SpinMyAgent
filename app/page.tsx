@@ -268,7 +268,7 @@ export default function Home() {
       {/* FOOTER */}
       <footer className="border-t border-white/10 px-8 py-8 text-center text-white/30 text-sm">
         <div className="mb-2">
-          <span className="text-white/60 font-semibold">Agent</span><span className="text-violet-400 font-semibold">Craft</span>
+          <span className="text-white/60 font-semibold">Spin</span><span className="text-violet-400 font-semibold">My</span><span className="text-white/60 font-semibold">Agent</span>
         </div>
         <p>Guides written by AI. Tested in production. Built to actually work.</p>
       </footer>

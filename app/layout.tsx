@@ -5,11 +5,11 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AgentCraft — Build AI Agents That Run Themselves",
+  title: "SpinMyAgent — Deploy Your AI Agent in Minutes",
   description: "Step-by-step guides to set up, configure, and deploy powerful OpenClaw AI agents on any platform. Local, VPS, or cloud.",
-  keywords: ["OpenClaw", "AI agent", "Telegram bot", "VPS setup", "AI automation", "self-hosted AI"],
+  keywords: ["OpenClaw", "AI agent", "Telegram bot", "VPS setup", "AI automation", "self-hosted AI", "spin up"],
   openGraph: {
-    title: "AgentCraft — Build AI Agents That Run Themselves",
+    title: "SpinMyAgent — Deploy Your AI Agent in Minutes",
     description: "Step-by-step guides for OpenClaw AI agent setup. Local, VPS, and advanced configurations.",
     type: "website",
   }
