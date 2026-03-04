@@ -24,10 +24,10 @@ export default function CheckoutButton() {
         throw new Error('Failed to create checkout session');
       }
 
-      const { sessionId } = await response.json();
+      const { sessionId, url } = await response.json();
 
-      // Redirect to Stripe checkout
-      window.location.href = `https://checkout.stripe.com/pay/${sessionId}`;
+      // Redirect to Stripe checkout using the URL from API response
+      window.location.href = url || `https://checkout.stripe.com/c/pay/${sessionId}`;
     } catch (err: any) {
       setError(err.message || 'An error occurred');
       setLoading(false);

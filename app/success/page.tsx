@@ -12,7 +12,7 @@ function SuccessContent() {
     {
       title: 'Complete OpenClaw Operating System',
       description: '66 pages • All 6 guides • Templates • Checklists',
-      url: 'https://blnapqdkwdtnykxfrzrk.supabase.co/storage/v1/object/public/guides/001-memory-architecture.pdf',
+      url: 'https://blnapqdkwdtnykxfrznk.supabase.co/storage/v1/object/public/guides/complete-openclaw-os.pdf',
     },
   ];
 

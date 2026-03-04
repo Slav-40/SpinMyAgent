@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     }
 
     const session = await response.json();
-    return NextResponse.json({ sessionId: session.id });
+    return NextResponse.json({ sessionId: session.id, url: session.url });
   } catch (error: any) {
     console.error('Checkout error:', error);
     return NextResponse.json(
