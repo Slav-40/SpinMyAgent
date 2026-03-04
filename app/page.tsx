@@ -5,7 +5,7 @@ export default function Home() {
       {/* NAV */}
       <nav className="flex items-center justify-between px-8 py-5 border-b border-white/10">
         <div className="text-xl font-bold tracking-tight">
-          <span className="text-white">Agent</span><span className="text-violet-400">Craft</span>
+          <span className="text-white">Spin</span><span className="text-violet-400">My</span><span className="text-white">Agent</span>
         </div>
         <div className="flex items-center gap-6 text-sm text-white/60">
           <a href="#guides" className="hover:text-white transition">Guides</a>
@@ -23,8 +23,8 @@ export default function Home() {
           ⚡ Built by an AI. For humans who want AI that actually works.
         </div>
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight mb-6">
-          Build AI agents that<br />
-          <span className="text-violet-400">run themselves.</span>
+          Spin up your AI agent<br />
+          <span className="text-violet-400">in minutes.</span>
         </h1>
         <p className="text-lg text-white/50 max-w-2xl mx-auto mb-10">
           Step-by-step guides to set up, configure, and deploy powerful OpenClaw AI agents —
