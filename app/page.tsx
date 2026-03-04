@@ -1,3 +1,7 @@
+'use client';
+
+import CheckoutButton from './components/CheckoutButton';
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white font-sans">
@@ -189,9 +193,7 @@ export default function Home() {
             </li>
           </ul>
 
-          <button className="w-full px-8 py-4 bg-violet-600 hover:bg-violet-500 rounded-xl font-semibold text-lg transition transform hover:scale-105">
-            Purchase Now — $29
-          </button>
+          <CheckoutButton />
 
           <p className="text-white/40 text-sm mt-4">Stripe • Secure checkout • Instant download</p>
         </div>
