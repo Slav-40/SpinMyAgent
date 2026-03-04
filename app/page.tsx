@@ -181,6 +181,90 @@ export default function Home() {
         </div>
       </section>
 
+      {/* HOSTINGER VPS SECTION */}
+      <section className="max-w-5xl mx-auto px-8 py-10 pb-24">
+        <div className="rounded-2xl bg-gradient-to-br from-white/[0.03] to-white/[0.01] border border-white/10 p-10">
+          <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-medium mb-3">
+                🖥️ Recommended Hosting
+              </div>
+              <h2 className="text-3xl font-bold">Deploy your agent 24/7</h2>
+              <p className="text-white/50 mt-2">Every guide in this store is built and tested on Hostinger VPS. Our top pick for running OpenClaw agents around the clock.</p>
+            </div>
+            <div className="text-white/30 text-sm text-right">
+              <div>Up to 20% off</div>
+              <div>with our link</div>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-4 gap-4">
+            {[
+              {
+                name: "KVM 1",
+                price: "£5.99/mo",
+                specs: ["1 vCPU", "4 GB RAM", "50 GB NVMe", "4 TB Bandwidth"],
+                commission: "£11.50",
+                url: "https://www.hostinger.com/uk/cart?product=vps%3Avps_kvm_1&period=12&referral_type=cart_link&REFERRALCODE=S7LMPENOVFIU&referral_id=019cb6eb-2eb5-71bb-b377-36773915c06e",
+                recommended: "Budget builds",
+                popular: false
+              },
+              {
+                name: "KVM 2",
+                price: "£7.99/mo",
+                specs: ["2 vCPU", "8 GB RAM", "100 GB NVMe", "8 TB Bandwidth"],
+                commission: "£15.34",
+                url: "https://www.hostinger.com/uk/cart?product=vps%3Avps_kvm_2&period=12&referral_type=cart_link&REFERRALCODE=S7LMPENOVFIU&referral_id=019cb6eb-6d5f-71cb-bcb1-e1b1a50adf44",
+                recommended: "Best for most setups",
+                popular: true
+              },
+              {
+                name: "KVM 4",
+                price: "£11.99/mo",
+                specs: ["4 vCPU", "16 GB RAM", "200 GB NVMe", "16 TB Bandwidth"],
+                commission: "£23.02",
+                url: "https://www.hostinger.com/uk/cart?product=vps%3Avps_kvm_4&period=12&referral_type=cart_link&REFERRALCODE=S7LMPENOVFIU&referral_id=019cb6eb-9adf-71af-aac2-491288bfe1e9",
+                recommended: "Multi-agent + Ollama",
+                popular: false
+              },
+              {
+                name: "KVM 8",
+                price: "£22.99/mo",
+                specs: ["8 vCPU", "32 GB RAM", "400 GB NVMe", "32 TB Bandwidth"],
+                commission: "£44.14",
+                url: "https://www.hostinger.com/uk/cart?product=vps%3Avps_kvm_8&period=12&referral_type=cart_link&REFERRALCODE=S7LMPENOVFIU&referral_id=019cb6eb-c62f-71bc-8e23-9c807ffa8faf",
+                recommended: "Power users",
+                popular: false
+              }
+            ].map((plan) => (
+              <div key={plan.name} className={`p-5 rounded-xl border transition ${plan.popular ? 'border-violet-500/50 bg-violet-500/10' : 'border-white/10 bg-white/[0.02]'}`}>
+                {plan.popular && (
+                  <div className="text-xs font-medium text-violet-400 mb-2">⭐ Most Popular</div>
+                )}
+                <div className="text-lg font-bold mb-1">{plan.name}</div>
+                <div className="text-2xl font-bold text-white mb-1">{plan.price}</div>
+                <div className="text-white/40 text-xs mb-4">{plan.recommended}</div>
+                <ul className="space-y-1.5 mb-5">
+                  {plan.specs.map((spec) => (
+                    <li key={spec} className="text-white/60 text-xs flex items-center gap-1.5">
+                      <span className="text-green-400">✓</span> {spec}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href={plan.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`block w-full py-2.5 rounded-lg text-sm font-medium text-center transition ${plan.popular ? 'bg-violet-600 hover:bg-violet-500 text-white' : 'bg-white/5 hover:bg-white/10 text-white/70 border border-white/10'}`}
+                >
+                  Get {plan.name} →
+                </a>
+              </div>
+            ))}
+          </div>
+          <p className="text-white/20 text-xs mt-6 text-center">Affiliate link — we earn a small commission at no extra cost to you. We only recommend what we actually use.</p>
+        </div>
+      </section>
+
       {/* FOOTER */}
       <footer className="border-t border-white/10 px-8 py-8 text-center text-white/30 text-sm">
         <div className="mb-2">
