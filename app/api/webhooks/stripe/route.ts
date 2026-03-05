@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { recordPayment } from '@/lib/db';
+import { sendPurchaseConfirmationEmail } from '@/lib/resend';
 
 // Force Node.js runtime (required for better-sqlite3 native module)
 export const runtime = 'nodejs';
@@ -61,6 +62,7 @@ export async function POST(request: NextRequest) {
 
       const amountCents = session.amount_total || 0;
 
+      let isDuplicate = false;
       try {
         recordPayment(session.id, email, amountCents, 'completed');
         console.log(`[Webhook] Payment recorded: ${session.id} for ${email} ($${amountCents / 100})`);
@@ -68,11 +70,31 @@ export async function POST(request: NextRequest) {
         // Duplicate session_id → idempotency, already recorded
         if (dbErr.message?.includes('UNIQUE constraint')) {
           console.log(`[Webhook] Duplicate event for session ${session.id}, skipping`);
+          isDuplicate = true;
         } else {
           console.error('[Webhook] DB error recording payment:', dbErr.message);
           // Return 500 so Stripe retries
           return NextResponse.json({ error: 'Failed to record payment' }, { status: 500 });
         }
+      }
+
+      // Send purchase confirmation email (only for new payments, not duplicates)
+      if (!isDuplicate && email) {
+        const emailResult = await sendPurchaseConfirmationEmail(email, [
+          {
+            title: 'Complete OpenClaw Operating System',
+            url: 'https://blnapqdkwdtnykxfrzrk.supabase.co/storage/v1/object/public/guides/complete-openclaw-os.pdf',
+          },
+        ]);
+
+        if (emailResult.success) {
+          console.log(`[Webhook] Confirmation email sent to ${email} (messageId: ${emailResult.messageId})`);
+        } else {
+          // Email failure doesn't block payment success; log for manual follow-up
+          console.error(`[Webhook] Email send failed for ${email}: ${emailResult.error}. Payment still confirmed.`);
+        }
+      } else if (!email) {
+        console.warn(`[Webhook] No email address for session ${session.id}, skipping email send`);
       }
       break;
     }
