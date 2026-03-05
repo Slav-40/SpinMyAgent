@@ -39,7 +39,7 @@ function generateEmailHTML(links: Array<{ title: string; url: string }>): string
       <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
         <h3 style="margin: 0 0 8px 0;">📚 ${link.title}</h3>
         <p style="color: #666; font-size: 14px; margin: 0 0 12px 0;">66 pages • All 6 guides • Templates • Checklists</p>
-        <a href="${link.url}"
+        <a href="${link.url}" target="_blank" rel="noopener noreferrer"
            style="display: inline-block; background: #7c3aed; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 10px 0; font-weight: bold;">
           ⬇️ Download PDF
         </a>

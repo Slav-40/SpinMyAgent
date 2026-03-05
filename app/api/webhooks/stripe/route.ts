@@ -83,7 +83,7 @@ export async function POST(request: NextRequest) {
         const emailResult = await sendPurchaseConfirmationEmail(email, [
           {
             title: 'Complete OpenClaw Operating System',
-            url: 'https://blnapqdkwdtnykxfrzrk.supabase.co/storage/v1/object/public/guides/complete-openclaw-os.pdf',
+            url: 'https://blnapqdkwdtnykxfrznk.supabase.co/storage/v1/object/public/guides/complete-openclaw-os.pdf',
           },
         ]);
 
