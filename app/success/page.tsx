@@ -1,12 +1,17 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect, useState, Suspense } from 'react';
 
 function SuccessContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const email = searchParams.get('email') || 'your email';
   const sessionId = searchParams.get('session_id');
+
+  const [verifying, setVerifying] = useState(true);
+  const [verified, setVerified] = useState(false);
+  const [verifyError, setVerifyError] = useState('');
 
   const pdfLinks = [
     {
@@ -16,6 +21,86 @@ function SuccessContent() {
     },
   ];
 
+  useEffect(() => {
+    async function verifyPayment() {
+      if (!sessionId) {
+        // No session ID → redirect home
+        router.replace('/');
+        return;
+      }
+
+      // Validate session ID format before sending to server
+      if (!/^cs_(test|live)_[a-zA-Z0-9]{20,}$/.test(sessionId)) {
+        console.warn('[Success] Invalid session ID format');
+        router.replace('/');
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/verify-payment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sessionId, email }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.valid) {
+          setVerified(true);
+        } else {
+          // Payment not verified → redirect home after short delay
+          console.warn('[Success] Payment not verified:', data.error);
+          setVerifyError(data.error || 'Payment could not be verified');
+
+          // Give user a moment to see what's happening, then redirect
+          setTimeout(() => {
+            router.replace('/');
+          }, 3000);
+        }
+      } catch (err) {
+        console.error('[Success] Verification request failed:', err);
+        setVerifyError('Unable to verify payment. Please contact support.');
+      } finally {
+        setVerifying(false);
+      }
+    }
+
+    verifyPayment();
+  }, [sessionId, email, router]);
+
+  // ── Loading state ──────────────────────────────────────────────────────
+  if (verifying) {
+    return (
+      <main className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full border border-violet-500/50 mb-6 animate-pulse">
+            <span className="text-3xl">⏳</span>
+          </div>
+          <p className="text-white/60">Verifying your payment...</p>
+        </div>
+      </main>
+    );
+  }
+
+  // ── Payment not verified ───────────────────────────────────────────────
+  if (!verified) {
+    return (
+      <main className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center">
+        <div className="text-center max-w-md">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-500/20 border border-red-500/50 mb-6">
+            <span className="text-3xl">✗</span>
+          </div>
+          <h1 className="text-2xl font-bold mb-3">Payment Not Verified</h1>
+          <p className="text-white/60 mb-4">
+            {verifyError || 'We could not verify your payment.'}
+          </p>
+          <p className="text-white/40 text-sm">Redirecting you home...</p>
+        </div>
+      </main>
+    );
+  }
+
+  // ── Payment verified → show downloads ─────────────────────────────────
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white font-sans">
       {/* NAV */}
@@ -78,7 +163,7 @@ function SuccessContent() {
 
         {/* NEXT STEPS */}
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-2xl font-bold mb-6">What's Next?</h2>
+          <h2 className="text-2xl font-bold mb-6">What&apos;s Next?</h2>
           <div className="space-y-4 text-left">
             <div className="flex gap-4">
               <div className="text-violet-400 font-bold text-lg min-w-fit">1.</div>
@@ -131,7 +216,11 @@ function SuccessContent() {
 
 export default function SuccessPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center">Loading...</div>}>
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center">
+        <p>Loading...</p>
+      </div>
+    }>
       <SuccessContent />
     </Suspense>
   );
