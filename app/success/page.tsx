@@ -17,7 +17,7 @@ function SuccessContent() {
     {
       title: 'Complete OpenClaw Operating System',
       description: '66 pages • All 6 guides • Templates • Checklists',
-      url: 'https://blnapqdkwdtnykxfrznk.supabase.co/storage/v1/object/public/guides/complete-openclaw-os.pdf',
+      url: 'https://blnapqdkwdtnykxfrzrk.supabase.co/storage/v1/object/public/guides/complete-openclaw-os.pdf',
     },
   ];
 
