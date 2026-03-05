@@ -17,7 +17,10 @@ function SuccessContent() {
     {
       title: 'Complete OpenClaw Operating System',
       description: '66 pages • All 6 guides • Templates • Checklists',
-      url: 'https://blnapqdkwdtnykxfrzrk.supabase.co/storage/v1/object/public/guides/complete-openclaw-os.pdf',
+      // Use proxy endpoint to ensure proper Content-Disposition download header
+      // (cross-origin URLs ignore the 'download' attribute in browsers)
+      url: '/api/download-pdf?file=complete-openclaw-os.pdf',
+      filename: 'complete-openclaw-os.pdf',
     },
   ];
 
@@ -144,7 +147,7 @@ function SuccessContent() {
               </div>
               <a
                 href={link.url}
-                download
+                download={link.filename}
                 className="px-6 py-3 bg-violet-600 hover:bg-violet-500 rounded-lg font-semibold whitespace-nowrap transition"
               >
                 Download PDF
